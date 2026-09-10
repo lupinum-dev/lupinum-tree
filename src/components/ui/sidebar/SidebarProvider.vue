@@ -29,7 +29,10 @@ const emits = defineEmits<{
   'update:open': [open: boolean]
 }>()
 
-const isMobile = useMediaQuery('(max-width: 768px)')
+const isMobile = useMediaQuery('(max-width: 768px)', {
+  // Match the desktop prerender until the client can measure the real viewport.
+  ssrWidth: 1024,
+})
 const openMobile = ref(false)
 
 const open = useVModel(props, 'open', emits, {
